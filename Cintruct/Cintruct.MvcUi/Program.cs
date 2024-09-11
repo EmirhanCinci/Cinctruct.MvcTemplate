@@ -1,3 +1,7 @@
+using Cintruct.MvcUi.ApiServices.Implementations;
+using Cintruct.MvcUi.ApiServices.Interfaces;
+using Cintruct.MvcUi.Middlewares;
+
 namespace Cintruct.MvcUi
 {
     public class Program
@@ -8,7 +12,13 @@ namespace Cintruct.MvcUi
 
             builder.Services.AddControllersWithViews();
 
-            var app = builder.Build();
+			builder.Services.AddDistributedMemoryCache();
+			builder.Services.AddSession();
+			builder.Services.AddHttpContextAccessor();
+			builder.Services.AddHttpClient();
+			builder.Services.AddScoped<IHttpApiService, HttpApiService>();
+
+			var app = builder.Build();
 
             if (!app.Environment.IsDevelopment())
             {
@@ -16,15 +26,21 @@ namespace Cintruct.MvcUi
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+			app.UseMiddleware<CacheControlHandler>();
+
+			app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+			app.UseSession();
 
-            app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+			app.UseAuthorization();
+
+			app.UseMiddleware<StatusCodeHandler>();
+
+			app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

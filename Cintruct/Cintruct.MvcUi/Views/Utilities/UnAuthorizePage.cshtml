@@ -1,0 +1,23 @@
+﻿﻿﻿﻿﻿﻿@{
+    Layout = "~/Views/Shared/_StatusCodeLayout.cshtml";
+    ViewBag.Title = "Yetkisiz Erişim";
+}
+
+<div class="col col-xl-5">
+    <div class="card-body p-4">
+        <h1 class="display-1 fw-bold"><span class="text-white">4</span><span class="text-white">0</span><span class="text-white">1</span></h1>
+        <h2 class="fw-bold text-danger fs-1">Yetkisiz Erişim!</h2>
+        <p>
+            Bu sayfaya erişim izniniz bulunmamaktadır.
+            <br /> Eğer bu sayfaya erişim izniniz olduğunu düşünüyorsanız, lütfen yöneticiyle iletişime geçin.
+            <br /> Şimdi önceki sayfaya veya ana sayfaya dönün.
+        </p>
+        <div class="mt-5">
+            <a href="~/Home/Index" class="btn btn-light btn-lg px-md-5 radius-30"><i class="bi bi-house-door"></i> Ana Sayfa</a>
+            <button type="button" class="btn btn-light btn-back btn-lg ms-3 px-md-5 radius-30"><i class="bi bi-arrow-left-circle"></i> Geri</button>
+        </div>
+    </div>
+</div>
+<div class="col-xl-7">
+    <img src="~/images/status-code-pages/401.jpg" class="w-100" style="height: 85vh;" />
+</div>
